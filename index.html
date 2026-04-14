@@ -1,0 +1,1521 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lerion RP — Игровой SAMP RP проект</title>
+  <meta name="description" content="Lerion RP — современный SAMP RP проект с атмосферой, стилем и сильным игровым вайбом." />
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --bg-soft: #12161f;
+      --bg-card: rgba(20, 24, 34, 0.86);
+      --bg-card-strong: #171c27;
+      --text: #f4f7fb;
+      --text-soft: #aeb7c7;
+      --line: rgba(255, 255, 255, 0.08);
+      --accent: #ff8a1d;
+      --accent-2: #ffb347;
+      --accent-dark: #db6d06;
+      --success: #9fe870;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --container: 1180px;
+      --header-height: 84px;
+      --transition: 220ms ease;
+    }* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 138, 29, 0.14), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(255, 179, 71, 0.08), transparent 22%),
+    linear-gradient(180deg, #090b10 0%, #0b0d12 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(40px);
+  opacity: 0.45;
+}
+
+body::before {
+  width: 320px;
+  height: 320px;
+  top: 80px;
+  left: -80px;
+  background: rgba(255, 138, 29, 0.15);
+  border-radius: 50%;
+}
+
+body::after {
+  width: 260px;
+  height: 260px;
+  right: -50px;
+  bottom: 120px;
+  background: rgba(255, 179, 71, 0.08);
+  border-radius: 50%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.container {
+  width: min(var(--container), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 34px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 138, 29, 0.1);
+  border: 1px solid rgba(255, 138, 29, 0.18);
+  color: var(--accent-2);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.03;
+  margin: 0 0 14px;
+  letter-spacing: -0.04em;
+}
+
+.section-description {
+  margin: 0;
+  max-width: 720px;
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(18px);
+  background: rgba(11, 13, 18, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-inner {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255, 138, 29, 0.18), rgba(255, 179, 71, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  padding: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+.brand-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-subtitle {
+  display: block;
+  color: var(--text-soft);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  padding: 11px 14px;
+  border-radius: 12px;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 600;
+  transition: color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+  outline: none;
+}
+
+.menu-toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.menu-toggle:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.menu-toggle span,
+.menu-toggle span::before,
+.menu-toggle span::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  position: relative;
+  transition: transform var(--transition), opacity var(--transition);
+  content: "";
+}
+
+.menu-toggle span::before {
+  position: absolute;
+  top: -6px;
+}
+
+.menu-toggle span::after {
+  position: absolute;
+  top: 6px;
+}
+
+.menu-toggle.is-active span {
+  background: transparent;
+}
+
+.menu-toggle.is-active span::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.is-active span::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.button,
+.button-secondary,
+.button-ghost,
+.button-dark {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 16px;
+  padding: 15px 22px;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+  will-change: transform;
+}
+
+.button:hover,
+.button-secondary:hover,
+.button-ghost:hover,
+.button-dark:hover {
+  transform: translateY(-2px);
+}
+
+.button {
+  color: #18130d;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  box-shadow: 0 16px 32px rgba(255, 138, 29, 0.22);
+}
+
+.button:hover {
+  box-shadow: 0 20px 36px rgba(255, 138, 29, 0.28);
+}
+
+.button-secondary {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.button-secondary:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.button-dark {
+  color: var(--text);
+  background: #1c2230;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.button-dark:hover {
+  background: #232b3b;
+}
+
+.button-ghost {
+  color: var(--accent-2);
+  background: rgba(255, 138, 29, 0.08);
+  border: 1px solid rgba(255, 138, 29, 0.16);
+}
+
+.hero {
+  padding: 62px 0 56px;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-copy {
+  max-width: 700px;
+}
+
+.hero-title {
+  font-size: clamp(40px, 7vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  margin: 0 0 22px;
+}
+
+.hero-title .accent {
+  color: var(--accent-2);
+  text-shadow: 0 0 24px rgba(255, 179, 71, 0.14);
+}
+
+.hero-text {
+  margin: 0 0 28px;
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.74;
+  color: var(--text-soft);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.hero-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mini-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 999px;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mini-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px rgba(255, 138, 29, 0.55);
+}
+
+.hero-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(22, 27, 39, 0.96), rgba(14, 17, 25, 0.92));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-xl);
+  padding: 26px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255, 138, 29, 0.16), transparent 34%);
+  z-index: -1;
+}
+
+.hero-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.hero-logo-box {
+  width: 100px;
+  height: 100px;
+  border-radius: 26px;
+  padding: 18px;
+  background: linear-gradient(145deg, rgba(255, 138, 29, 0.12), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  object-fit: contain;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(159, 232, 112, 0.08);
+  border: 1px solid rgba(159, 232, 112, 0.16);
+  color: #c5f8a8;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-chip::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 14px rgba(159, 232, 112, 0.45);
+}
+
+.hero-panel-title {
+  font-size: 26px;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  letter-spacing: -0.03em;
+}
+
+.hero-panel-text {
+  margin: 0 0 22px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.feature-item {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.feature-item strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.feature-item span {
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.steps-grid,
+.cards-grid,
+.footer-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.steps-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.step-card,
+.info-card,
+.link-card,
+.footer-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.step-card::before,
+.info-card::before,
+.link-card::before,
+.footer-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 138, 29, 0.06), transparent 40%);
+  pointer-events: none;
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 138, 29, 0.12);
+  border: 1px solid rgba(255, 138, 29, 0.18);
+  color: var(--accent-2);
+  font-weight: 900;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.step-card h3,
+.info-card h3,
+.link-card h3,
+.footer-brand-title {
+  margin: 0 0 10px;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.step-card p,
+.info-card p,
+.link-card p,
+.footer-brand-text,
+.footer-links a,
+.faq-answer {
+  color: var(--text-soft);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 15px;
+}
+
+.steps-action {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.cards-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 30px;
+}
+
+.info-card small {
+  display: inline-block;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.faq {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.faq-item {
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 138, 29, 0.2);
+  background: rgba(255,255,255,0.05);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  text-align: left;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.faq-question span:last-child {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  color: var(--accent-2);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.faq-item.is-open .faq-question span:last-child {
+  transform: rotate(45deg);
+  background: rgba(255, 138, 29, 0.12);
+}
+
+.faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+
+.faq-item.is-open .faq-answer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer {
+  padding: 0 22px 20px;
+}
+
+.help-actions,
+.quick-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.quick-links {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.link-card {
+  min-height: 100%;
+}
+
+.link-card .button-ghost,
+.link-card .button-dark {
+  margin-top: 18px;
+}
+
+footer {
+  padding: 30px 0 40px;
+}
+
+.footer-grid {
+  grid-template-columns: 1.2fr 0.8fr 0.8fr;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.footer-brand-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  padding: 10px;
+  object-fit: contain;
+  background: linear-gradient(145deg, rgba(255, 138, 29, 0.15), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.footer-links {
+  display: grid;
+  gap: 10px;
+}
+
+.footer-links a {
+  transition: color var(--transition), transform var(--transition);
+  width: fit-content;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  transform: translateX(3px);
+}
+
+.footer-bottom {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #7f8899;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 5, 8, 0.72);
+  backdrop-filter: blur(9px);
+}
+
+.modal-dialog {
+  position: relative;
+  width: min(560px, 100%);
+  background: linear-gradient(180deg, rgba(21, 26, 37, 0.98), rgba(14, 18, 26, 0.98));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 26px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+  padding: 26px;
+  z-index: 1;
+  animation: modalIn 220ms ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.08);
+  transform: rotate(90deg);
+}
+
+.modal-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: rgba(255, 138, 29, 0.12);
+  border: 1px solid rgba(255, 138, 29, 0.18);
+  color: var(--accent-2);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.modal-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+
+.modal-text {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+.modal-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1100px) {
+  .hero-grid,
+  .steps-grid,
+  .cards-grid,
+  .footer-grid,
+  .quick-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-grid {
+    align-items: stretch;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-height: 76px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 16px;
+    right: 16px;
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 22px;
+    background: rgba(15, 19, 28, 0.96);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+  .nav.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    display: grid;
+    gap: 6px;
+  }
+
+  .nav-link {
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .hero {
+    padding-top: 32px;
+  }
+
+  .hero-grid,
+  .steps-grid,
+  .cards-grid,
+  .footer-grid,
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 82px 0;
+  }
+
+  .hero-actions,
+  .steps-action,
+  .help-actions,
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .button,
+  .button-secondary,
+  .button-dark,
+  .button-ghost {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(var(--container), calc(100% - 22px));
+  }
+
+  .hero-card,
+  .step-card,
+  .info-card,
+  .link-card,
+  .footer-card,
+  .modal-dialog {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 12vw, 54px);
+  }
+
+  .hero-text,
+  .section-description,
+  .modal-text {
+    font-size: 15px;
+  }
+
+  .faq-question {
+    font-size: 15px;
+    padding: 18px;
+  }
+
+  .faq-answer {
+    padding: 0 18px 18px;
+  }
+
+  .hero-logo-box {
+    width: 84px;
+    height: 84px;
+  }
+
+  .hero-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!--
+    Быстрая замена ссылок:
+    1. Замени значения в объекте LINKS ниже.
+    2. Логотип положи рядом с этим файлом под названием logo.png
+  -->  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="Lerion RP — на главную">
+        <img src="logo.png" alt="Логотип Lerion RP" class="brand-logo" />
+        <div class="brand-text">
+          <span class="brand-title">Lerion RP</span>
+          <span class="brand-subtitle">Игровой SAMP RP проект</span>
+        </div>
+      </a><button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
+    <span></span>
+  </button>
+
+  <nav class="nav" id="mobileNav">
+    <div class="nav-links">
+      <a class="nav-link" href="#home">Главная</a>
+      <a class="nav-link" href="#start">Как начать играть</a>
+      <a class="nav-link" href="#help">Помощь</a>
+      <a class="nav-link" href="#extra">Разделы</a>
+      <a class="nav-link js-open-modal" href="#" data-modal="forum">Форум</a>
+      <a class="nav-link js-open-modal" href="#" data-modal="donate">Донат</a>
+    </div>
+    <a class="button" href="#" id="vkHeaderLink" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+  </nav>
+</div>
+
+  </header>  <main>
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Новый взгляд на RP-атмосферу</div>
+          <h1 class="hero-title">Добро пожаловать в <span class="accent">Lerion RP</span></h1>
+          <p class="hero-text">
+            Современный SAMP RP проект с тёмной эстетикой, сильным визуальным стилем и атмосферой,
+            в которую хочется погружаться с первого экрана. Следи за развитием проекта, новостями
+            и этапами запуска уже сейчас.
+          </p><div class="hero-actions">
+        <button class="button js-open-modal" data-modal="download" type="button">Скачать игру</button>
+        <a class="button-secondary" href="#" id="vkHeroLink" target="_blank" rel="noopener noreferrer">Сообщество ВКонтакте</a>
+      </div>
+
+      <div class="hero-notes">
+        <div class="mini-badge">Проект в разработке</div>
+        <div class="mini-badge">Форум скоро появится</div>
+        <div class="mini-badge">Донат временно недоступен</div>
+      </div>
+    </div>
+
+    <div class="hero-card reveal">
+      <div class="hero-card-top">
+        <img src="logo.png" alt="Логотип Lerion RP" class="hero-logo-box" />
+        <div class="status-chip">Следите за новостями проекта</div>
+      </div>
+
+      <h2 class="hero-panel-title">Стиль, подача и игровой вайб без перегруза</h2>
+      <p class="hero-panel-text">
+        Lerion RP — это презентация сильного бренда уже на этапе разработки: чистая подача, удобная навигация,
+        понятные действия и упор на атмосферу проекта.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <strong>Игровой стиль</strong>
+          <span>Тёмный интерфейс, оранжевые акценты и чистые современные блоки.</span>
+        </div>
+        <div class="feature-item">
+          <strong>Понятный старт</strong>
+          <span>Пользователь сразу видит, куда нажать и как следить за запуском.</span>
+        </div>
+        <div class="feature-item">
+          <strong>Готово под GitHub Pages</strong>
+          <span>Один файл, без сборщиков, без зависимостей и лишней сложности.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="start">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Пошаговый старт</div>
+        <h2 class="section-title">Как начать играть</h2>
+        <p class="section-description">
+          Пока проект находится в разработке, задача игрока простая: познакомиться с Lerion RP,
+          подписаться на официальное сообщество и следить за ходом разработки до открытия доступа.
+        </p>
+      </div>
+    </div>
+
+    <div class="steps-grid">
+      <article class="step-card reveal">
+        <div class="step-number">01</div>
+        <h3>Ознакомьтесь с проектом</h3>
+        <p>Посмотрите структуру сайта, изучите основные разделы и поймите, чем живёт Lerion RP уже сейчас.</p>
+      </article>
+
+      <article class="step-card reveal">
+        <div class="step-number">02</div>
+        <h3>Перейдите в сообщество</h3>
+        <p>Подпишитесь на официальное сообщество ВКонтакте, чтобы не пропускать анонсы и свежие новости.</p>
+      </article>
+
+      <article class="step-card reveal">
+        <div class="step-number">03</div>
+        <h3>Следите за новостями</h3>
+        <p>Там будут публиковаться детали запуска, развитие проекта, обновления и информация по открытию.</p>
+      </article>
+
+      <article class="step-card reveal">
+        <div class="step-number">04</div>
+        <h3>Скачайте игру после открытия</h3>
+        <p>Когда загрузка станет доступна, вы сможете установить игру и начать путь на сервере без лишних шагов.</p>
+      </article>
+    </div>
+
+    <div class="steps-action reveal">
+      <button class="button js-open-modal" data-modal="download" type="button">Скачать игру</button>
+      <a class="button-secondary" href="#" id="vkStartLink" target="_blank" rel="noopener noreferrer">Перейти в ВКонтакте</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="help">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Поддержка игроков</div>
+        <h2 class="section-title">Помощь и ответы на вопросы</h2>
+        <p class="section-description">
+          Здесь собраны базовые ответы для будущих игроков проекта. Тексты можно легко заменить позже,
+          но сама структура уже готова под нормальный запуск и удобна как на телефоне, так и на ПК.
+        </p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <article class="info-card reveal">
+        <small>Подсказка</small>
+        <h3>Что здесь находится</h3>
+        <p>
+          Раздел помощи нужен, чтобы игрок быстро понял текущее состояние проекта, нашёл ответы на частые вопросы
+          и сразу ушёл в официальное сообщество за дальнейшей информацией.
+        </p>
+        <div class="help-actions">
+          <a class="button" href="#" id="askQuestionLink" target="_blank" rel="noopener noreferrer">Задать вопрос</a>
+        </div>
+      </article>
+
+      <article class="info-card reveal" style="grid-column: span 2;">
+        <small>FAQ</small>
+        <h3>Часто задаваемые вопросы</h3>
+        <div class="faq" id="faq">
+          <div class="faq-item is-open">
+            <button class="faq-question" type="button" aria-expanded="true">
+              <span>Что это за проект?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">Lerion RP — это игровой SAMP RP проект с упором на атмосферу, стиль, удобство и современную подачу. Сейчас проект находится на стадии разработки.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Когда откроется игра?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">Точная дата открытия пока не объявлена. Следить за прогрессом и будущими анонсами можно в официальном сообществе ВКонтакте.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Как начать играть?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">Пока игра недоступна для скачивания. На этом этапе достаточно подписаться на сообщество, следить за новостями и дождаться объявления старта.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Где следить за новостями?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">Все основные новости, анонсы, статус разработки и важные объявления будут публиковаться в официальном сообществе ВКонтакте.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Когда заработает донат?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">Донат пока не запущен. О старте системы доната и её возможностях будет объявлено дополнительно после готовности проекта.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Как связаться с администрацией?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner">
+                <p class="faq-answer">На текущем этапе удобнее всего использовать официальное сообщество ВКонтакте. Там будут размещены контакты, новости и дальнейшие способы связи.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="extra">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Дополнительные разделы</div>
+        <h2 class="section-title">Форум, донат и полезные переходы</h2>
+        <p class="section-description">
+          Эти направления уже заложены в структуру сайта, но пока работают как аккуратные заглушки.
+          Это нормально: ты показываешь проект уверенно, даже пока часть функций ещё не готова.
+        </p>
+      </div>
+    </div>
+
+    <div class="quick-links">
+      <article class="link-card reveal">
+        <h3>Форум</h3>
+        <p>Форум уже предусмотрен в структуре проекта, но пока ещё находится в разработке и откроется позже.</p>
+        <button class="button-ghost js-open-modal" data-modal="forum" type="button">Открыть заглушку форума</button>
+      </article>
+
+      <article class="link-card reveal">
+        <h3>Донат</h3>
+        <p>Полноценная система доната на этом этапе не нужна. Сейчас раздел показывает корректное уведомление для пользователей.</p>
+        <button class="button-dark js-open-modal" data-modal="donate" type="button">Открыть заглушку доната</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+  </main>  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-card reveal">
+          <div class="footer-brand">
+            <img src="logo.png" alt="Логотип Lerion RP" class="footer-brand-logo" />
+            <div>
+              <h3 class="footer-brand-title">Lerion RP</h3>
+              <p class="footer-brand-text">
+                Современный SAMP RP проект с тёмной эстетикой, оранжевыми акцентами и сильной игровой подачей.
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">© 2026 Lerion RP. Все права защищены. Дизайн и структура подготовлены под статическую публикацию.</div>
+        </div><div class="footer-card reveal">
+      <h3>Навигация</h3>
+      <div class="footer-links">
+        <a href="#home">Главная</a>
+        <a href="#start">Как начать играть</a>
+        <a href="#help">Помощь</a>
+        <a href="#extra">Разделы</a>
+      </div>
+    </div>
+
+    <div class="footer-card reveal">
+      <h3>Полезные ссылки</h3>
+      <div class="footer-links">
+        <a href="#" id="vkFooterLink" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+        <a href="#" class="js-open-modal" data-modal="forum">Форум</a>
+        <a href="#help">Помощь</a>
+        <a href="#" class="js-open-modal" data-modal="donate">Донат</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </footer>  <div class="modal" id="modalRoot" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" aria-label="Закрыть окно" data-close-modal>×</button>
+      <div class="modal-icon" id="modalIcon">!</div>
+      <h2 class="modal-title" id="modalTitle">Заголовок</h2>
+      <p class="modal-text" id="modalText">Текст модального окна.</p>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>  <script>
+    const LINKS = {
+      vk: 'https://vk.com/',
+      forum: '#'
+    };
+
+    const MODALS = {
+      download: {
+        icon: '↓',
+        title: 'Скачать игру пока нельзя',
+        text: 'Скачать игру временно невозможно, игра находится в разработке. Вы можете следить за стадией разработки в сообществе ВКонтакте.',
+        actions: [
+          { type: 'link', label: 'Перейти в ВКонтакте', href: LINKS.vk, className: 'button' },
+          { type: 'close', label: 'Закрыть', className: 'button-secondary' }
+        ]
+      },
+      forum: {
+        icon: 'F',
+        title: 'Форум в разработке',
+        text: 'Форум находится в разработке. В скором времени он будет доступен.',
+        actions: [
+          { type: 'link', label: 'Перейти в ВКонтакте', href: LINKS.vk, className: 'button' },
+          { type: 'close', label: 'Закрыть', className: 'button-secondary' }
+        ]
+      },
+      donate: {
+        icon: '₽',
+        title: 'Донат временно не работает',
+        text: 'Донат временно не работает. О запуске системы доната будет объявлено дополнительно.',
+        actions: [
+          { type: 'link', label: 'Следить за новостями', href: LINKS.vk, className: 'button' },
+          { type: 'close', label: 'Закрыть', className: 'button-secondary' }
+        ]
+      }
+    };
+
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const modalRoot = document.getElementById('modalRoot');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalActions = document.getElementById('modalActions');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function applyLinks() {
+      const vkTargets = [
+        'vkHeaderLink',
+        'vkHeroLink',
+        'vkStartLink',
+        'askQuestionLink',
+        'vkFooterLink'
+      ];
+
+      vkTargets.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) element.href = LINKS.vk;
+      });
+    }
+
+    function openMenu() {
+      mobileNav.classList.add('is-open');
+      menuToggle.classList.add('is-active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove('is-open');
+      menuToggle.classList.remove('is-active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.contains('is-open');
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 860) closeMenu();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (
+        mobileNav.classList.contains('is-open') &&
+        !mobileNav.contains(event.target) &&
+        !menuToggle.contains(event.target)
+      ) {
+        closeMenu();
+      }
+    });
+
+    function closeModal() {
+      modalRoot.classList.remove('is-open');
+      modalRoot.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      modalActions.innerHTML = '';
+    }
+
+    function openModal(type) {
+      const data = MODALS[type];
+      if (!data) return;
+
+      modalTitle.textContent = data.title;
+      modalText.textContent = data.text;
+      modalIcon.textContent = data.icon;
+      modalActions.innerHTML = '';
+
+      data.actions.forEach((action) => {
+        if (action.type === 'link') {
+          const link = document.createElement('a');
+          link.href = action.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.className = action.className;
+          link.textContent = action.label;
+          modalActions.appendChild(link);
+        }
+
+        if (action.type === 'close') {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = action.className;
+          button.textContent = action.label;
+          button.addEventListener('click', closeModal);
+          modalActions.appendChild(button);
+        }
+      });
+
+      modalRoot.classList.add('is-open');
+      modalRoot.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.querySelectorAll('.js-open-modal').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const modalType = button.dataset.modal;
+        openModal(modalType);
+      });
+    });
+
+    modalRoot.addEventListener('click', (event) => {
+      if (event.target.hasAttribute('data-close-modal')) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+        closeMenu();
+      }
+    });
+
+    faqItems.forEach((item) => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+
+        faqItems.forEach((faq) => {
+          faq.classList.remove('is-open');
+          faq.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen) {
+          item.classList.add('is-open');
+          question.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 45, 220)}ms`;
+      observer.observe(element);
+    });
+
+    applyLinks();
+  </script></body>
+</html>
